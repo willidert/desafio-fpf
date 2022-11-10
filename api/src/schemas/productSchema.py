@@ -16,6 +16,7 @@ class ProductUpdate(ProductBase):
     pass
 
 class ProductInDBBase(ProductBase):
+    id: int
     description: str
     price: float
     purchase_date: datetime

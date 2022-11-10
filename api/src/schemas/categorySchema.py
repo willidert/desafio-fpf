@@ -11,6 +11,7 @@ class CategoryUpdate(CategoryBase):
     pass
 
 class CategoryDBBase(CategoryBase):
+    id: int
     name: str
 
     class Config:
