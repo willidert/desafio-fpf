@@ -6,11 +6,13 @@ class ProductBase(BaseModel):
     description: Optional[str]
     price: Optional[float]
     purchase_date: Optional[datetime]
+    category: Optional[str]
 
 class ProductCreate(ProductBase):
     description: str
     price: float
     purchase_date: datetime
+    category: str
 
 class ProductUpdate(ProductBase):
     pass
@@ -20,6 +22,7 @@ class ProductInDBBase(ProductBase):
     description: str
     price: float
     purchase_date: datetime
+    category: str
 
     class Config:
         orm_mode = True

@@ -1,8 +1,8 @@
-"""create table products
+"""create product table
 
-Revision ID: 1b5a1bfd664b
-Revises: 7d31dcb95d00
-Create Date: 2022-11-07 21:26:05.534465
+Revision ID: e2a16a925892
+Revises: 
+Create Date: 2022-11-12 17:13:52.332880
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1b5a1bfd664b'
-down_revision = '7d31dcb95d00'
+revision = 'e2a16a925892'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -23,8 +23,7 @@ def upgrade() -> None:
     sa.Column('purchase_date', sa.DateTime(timezone=True), nullable=False),
     sa.Column('price', sa.Float(precision=2, asdecimal=True), nullable=False),
     sa.Column('description', sa.String(length=225), nullable=False),
-    sa.Column('category_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
+    sa.Column('category', sa.String(length=225), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_products_id'), 'products', ['id'], unique=False)
