@@ -12,7 +12,7 @@ def get_product_by_id(db: Session, id: int) -> Optional[productSchema.Product]:
     return db.query(Product).where(Product.id == id)
 
 def create_product(db: Session, product: productSchema.ProductCreate) -> productSchema.Product:
-    db_product = Product(product.dict)
+    db_product = Product(**product.dict())
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
