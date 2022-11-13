@@ -1,6 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Product } from '../model/product';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -9,7 +11,7 @@ import { Product } from '../model/product';
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
-  constructor() {
+  constructor(private service: ProductService, private location: Location) {
     this.productForm = new FormGroup({
       id: new FormControl('', { nonNullable: true }),
       category: new FormControl('', {
@@ -32,4 +34,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onConfirm() {
+    console.log(this.productForm.value);
+  }
+
+  onCancel() {
+    this.location.back();
+  }
 }
