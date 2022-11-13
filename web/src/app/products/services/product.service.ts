@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Product } from '../model/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private readonly API_URL = 'localhost:8000/api/products/';
+  private readonly API_URL = 'http://localhost:8000/api/products/';
   constructor(private client: HttpClient) {}
 
   get_products(): Observable<Product[]> {
