@@ -1,3 +1,4 @@
+from fastapi.encoders import jsonable_encoder
 from typing import List, Optional
 from sqlalchemy.orm import Session
 
@@ -9,7 +10,7 @@ def get_products(db: Session, skip=0, limit=100) -> List[productSchema.Product]:
     return db.query(Product).offset(skip).limit(limit).all()
 
 def get_product_by_id(db: Session, id: int) -> Optional[productSchema.Product]:
-    return db.query(Product).where(Product.id == id)
+    return db.query(Product).where(Product.id == id).first()
 
 def create_product(db: Session, product: productSchema.ProductCreate) -> productSchema.Product:
     db_product = Product(**product.dict())
@@ -18,10 +19,12 @@ def create_product(db: Session, product: productSchema.ProductCreate) -> product
     db.refresh(db_product)
     return db_product
 
-def update_product(db: Session, product: productSchema.ProductUpdate, id: int) -> None:
-    db.query(Product).filter(Product.id == id).update(product.dict(exclude_unset=True))
+def update_product(db: Session, update_data: productSchema.ProductUpdate, id: int) -> None:
+    db.query(Product).filter(Product.id == id).update(update_data.dict())
     db.commit()
+    return
 
 def delete_product(db: Session, id: int) -> None:
     db.query(Product).filter(Product.id == id).delete()
     db.commit()
+    return
