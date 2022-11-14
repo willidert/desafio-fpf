@@ -1,5 +1,12 @@
 # Desafio fullstack FPF Tech
 
+if you don't want to configure the services, they are available in temporary environments :)
+
+| service | Tecnology |                        URL                         |
+| ------- | :-------: | :------------------------------------------------: |
+| web     |  Angular  |    [clique aqui](https://fpf-frontend.web.app)     |
+| api     |  Fastapi  | [clique aqui](https://crud-fpf.herokuapp.com/docs) |
+
 ## Backend
 
 - FastApi (Python)
