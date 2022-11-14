@@ -1,6 +1,13 @@
 <div class="py-12">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+      <form [formGroup]="searchForm">
+        <input
+          class="border-2 border-gray-200 rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+          formControlName="search"
+          placeholder="Filter products"
+        />
+      </form>
       <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div
@@ -59,7 +66,12 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                  <tr *ngFor="let product of products$ | async">
+                  <tr
+                    *ngFor="
+                      let product of products$
+                        | searchFilter: searchForm.value.search
+                    "
+                  >
                     <td class="px-6 py-4">
                       <div class="flex items-center">
                         <div class="ml-4">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 import { Product } from '../model/product';
 import { ProductService } from '../services/product.service';
@@ -11,25 +12,38 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  products$: Observable<Product[]>;
+  products$: Product[] = [];
+
+  searchForm: FormGroup;
   constructor(
     private service: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
-    this.products$ = this.service.get_products();
+    this.searchForm = new FormGroup({
+      search: new FormControl<string>(''),
+    });
+
+    this.service.get_products().subscribe((data) => (this.products$ = data));
   }
 
   ngOnInit(): void {
-    this.products$ = this.service.get_products();
+    this.service.get_products().subscribe((data) => (this.products$ = data));
   }
 
   onEdit(id: string): void {
-    console.log(`product ${id} editado`);
+    this.router.navigate(['edit', id], { relativeTo: this.route });
   }
 
   onDelete(id: string): void {
-    console.log(`product ${id} deletado`);
+    if (confirm('Are you sure you want to delete this?')) {
+      this.service.remove(id).subscribe(() => {
+        this.service
+          .get_products()
+          .subscribe((data) => (this.products$ = data));
+      });
+    }
   }
 
   onAdd(): void {
