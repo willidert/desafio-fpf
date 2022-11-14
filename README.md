@@ -106,7 +106,7 @@ alembic upgrade head
 uvicorn src.main:app --reload
 ```
 
-Alembic is used for migrations, you can view the sql in [migration](https://github.com/willidert/desafio-fpf/api/migration.sql) da raiz.
+Alembic is used for migrations, you can view the sql in [migration](https://github.com/willidert/desafio-fpf/api/migration.sql).
 
 #### start the frontend
 
