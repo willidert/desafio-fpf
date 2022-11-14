@@ -1,4 +1,5 @@
 from logging.config import fileConfig
+import os
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
@@ -27,6 +28,13 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+def get_url():
+    user = os.getenv("POSTGRES_USER", "fpf")
+    password = os.getenv("POSTGRES_PASSWORD", "password")
+    server = os.getenv("POSTGRES_SERVER", "localhost")
+    db = os.getenv("POSTGRES_DB", "fpf")
+    return f"postgresql://{user}:{password}@{server}/{db}"
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -40,7 +48,8 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = get_url()
+
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -59,8 +68,11 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    configuration = config.get_section(config.config_ini_section)
+    configuration["sqlalchemy.url"] = get_url()
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
