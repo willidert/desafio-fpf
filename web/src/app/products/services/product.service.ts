@@ -27,6 +27,10 @@ export class ProductService {
     return this.create(product);
   }
 
+  remove(id: string): Observable<Product> {
+    return this.client.delete<Product>(`${this.API_URL}${id}`);
+  }
+
   private create(product: Partial<Product>) {
     return this.client.post(this.API_URL, product);
   }
