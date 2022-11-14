@@ -3,8 +3,10 @@
 ## TODO
 
 [x] - product component
-[ ] - separate components
+[x] - separate components
 [x] - create product service
-[ ] - create product form
+[x] - include validations in html
+[x] - create filter search
+[x] - create product form
 [ ] - deploy
 [ ] - tests
