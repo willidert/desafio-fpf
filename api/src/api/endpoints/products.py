@@ -25,8 +25,8 @@ def create_product(product: productSchema.ProductCreate, db: Session = Depends(g
 
 @router.put('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def update_product(product: productSchema.ProductUpdate, id: int, db: Session = Depends(get_db)):
-    product = productService.get_product_by_id(db, id)
-    if product is None:
+    db_product = productService.get_product_by_id(db, id)
+    if db_product is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Product not found.')
     return productService.update_product(db, product, id)
 
