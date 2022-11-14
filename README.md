@@ -120,10 +120,10 @@ This start the services in:
 
 ## TODO
 
-[x] - create angular project
-[x] - create all api endpoints
-[x] - add dockerfiles and compose
-[x] - include instructions for execute
-[ ] - deploy for prodution env
-[x] - CI/CD configuration
-[x] - Some tests
+- [x] create angular project
+- [x] create all api endpoints
+- [x] add dockerfiles and compose
+- [x] include instructions for execute
+- [ ] deploy for prodution env
+- [x] CI/CD configuration
+- [x] Some tests
