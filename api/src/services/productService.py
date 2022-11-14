@@ -19,12 +19,13 @@ def create_product(db: Session, product: productSchema.ProductCreate) -> product
     db.refresh(db_product)
     return db_product
 
-def update_product(db: Session, update_data: productSchema.ProductUpdate, id: int) -> None:
+def update_product(db: Session, update_data: productSchema.ProductUpdate, id: int) -> productSchema.Product:
     db.query(Product).filter(Product.id == id).update(update_data.dict())
     db.commit()
-    return
+    return db.query(Product).filter(Product.id == id).first()
 
-def delete_product(db: Session, id: int) -> None:
+def delete_product(db: Session, id: int) -> productSchema.Product:
+    product = db.query(Product).filter(Product.id == id).first()
     db.query(Product).filter(Product.id == id).delete()
     db.commit()
-    return
+    return product
